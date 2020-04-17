@@ -6,25 +6,27 @@
     </h1>
     <b-card class="mb-2">
       <template v-slot:header>
-        <b-row>
-          <b-col md="6">
-            <p v-if="job.owner">{{job.owner.username}}</p>
-            <h2>{{job.title}}</h2>
-            <p>{{job.fulltime ? 'Full-time' : 'Part-time'}} / {{job.location}}</p>
-            <b-badge v-if="job.category">{{job.category}}</b-badge>
-          </b-col>
-          <b-col md="6" class="d-flex justify-content-center align-items-center">
-            <h4>{{job.created_at}}</h4>
-          </b-col>
-        </b-row>
+        <JobData :job="job" />
       </template>
       <h1>{{applicants.length}} Applicants</h1>
       <hr />
       <div v-for="(applicant, index) in applicants" :key="applicant.id">
-        <p>Applicant {{index + 1}}</p>
-        <h2>{{applicant.name}}</h2>
-        <p>{{applicant.cover}}</p>
-        <a :href="`mailto:${applicant.email}`">{{applicant.email}}</a>
+        <b-row>
+          <b-col md="4">
+            <p>
+              <small>applicant</small>
+              {{index + 1}}
+            </p>
+            <small>name</small>
+            <h2>{{applicant.name}}</h2>
+            <small>email</small>
+            <a :href="`mailto:${applicant.email}`">{{applicant.email}}</a>
+          </b-col>
+          <b-col md="8">
+            <small>cover letter</small>
+            <p>{{applicant.cover}}</p>
+          </b-col>
+        </b-row>
         <hr />
       </div>
     </b-card>
@@ -32,7 +34,11 @@
 </template>
 
 <script>
+import JobData from "@/components/JobData.vue";
 export default {
+  components: {
+    JobData
+  },
   data() {
     return {
       form: {}
@@ -41,7 +47,7 @@ export default {
   methods: {
     handleSubmit() {
       try {
-        this.$axios.post(`${process.env.API_URL}/applicants`, {
+        this.$axios.post(`/applicants`, {
           ...this.form,
           job: this.$route.params.id
         });
@@ -51,7 +57,7 @@ export default {
       }
     }
   },
-  async asyncData({ $axios, params, env }) {
+  async asyncData({ $axios, params }) {
     return {
       job: await $axios.$get(`/jobs/${params.id}`),
       applicants: await $axios.$get(`/applicants?job.id=${params.id}`)

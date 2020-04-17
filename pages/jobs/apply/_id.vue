@@ -6,17 +6,7 @@
     </h1>
     <b-card class="mb-2">
       <template v-slot:header>
-        <b-row>
-          <b-col md="6">
-            <p v-if="job.owner">{{job.owner.username}}</p>
-            <h2>{{job.title}}</h2>
-            <p>{{job.fulltime ? 'Full-time' : 'Part-time'}} / {{job.location}}</p>
-            <b-badge v-if="job.category">{{job.category}}</b-badge>
-          </b-col>
-          <b-col md="6" class="d-flex justify-content-center align-items-center">
-            <h4>{{job.created_at}}</h4>
-          </b-col>
-        </b-row>
+        <JobData :job="job" />
       </template>
       <hr />
       <h3>application</h3>
@@ -37,7 +27,11 @@
 </template>
 
 <script>
+import JobData from "@/components/JobData.vue";
 export default {
+  components: {
+    JobData
+  },
   data() {
     return {
       form: {}
@@ -46,7 +40,7 @@ export default {
   methods: {
     handleSubmit() {
       try {
-        this.$axios.post(`${process.env.API_URL}/applicants`, {
+        this.$axios.post(`/applicants`, {
           ...this.form,
           job: this.$route.params.id
         });
@@ -56,7 +50,7 @@ export default {
       }
     }
   },
-  async asyncData({ $axios, params, env }) {
+  async asyncData({ $axios, params }) {
     return {
       job: await $axios.$get(`/jobs/${params.id}`)
     };

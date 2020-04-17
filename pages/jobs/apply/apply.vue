@@ -30,7 +30,7 @@
 
 <script>
 export default {
-  async asyncData({ $axios, params, env }) {
+  async asyncData({ $axios, params }) {
     return {
       job: await $axios.$get(`/jobs/${params.id}`)
     };
