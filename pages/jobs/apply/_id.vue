@@ -20,6 +20,9 @@
         <b-form-group label="email">
           <b-form-input required type="email" v-model="form.email"></b-form-input>
         </b-form-group>
+        <b-form-group label="phone">
+          <b-form-input required v-model="form.phone"></b-form-input>
+        </b-form-group>
         <b-button type="submit">submit</b-button>
       </b-form>
     </b-card>
