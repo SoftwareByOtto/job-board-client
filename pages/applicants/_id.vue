@@ -21,6 +21,8 @@
             <h2>{{applicant.name}}</h2>
             <small>email</small>
             <a :href="`mailto:${applicant.email}`">{{applicant.email}}</a>
+            <small>phone</small>
+            <a :href="`tel:${applicant.email}`">{{applicant.phone}}</a>
           </b-col>
           <b-col md="8">
             <small>cover letter</small>
