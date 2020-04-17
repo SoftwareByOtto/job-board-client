@@ -5,13 +5,15 @@
         Jobsite
         <sup>beta</sup>
       </b-navbar-brand>
-      <!-- <b-navbar-item>{{this.$auth.loggedIn}}</b-navbar-item> -->
       <b-navbar-item
         v-if="this.$auth.loggedIn"
         class="ml-2"
       >{{this.$store.state.auth.user.username}}</b-navbar-item>
-      <b-navbar-item class="ml-2">
+      <b-navbar-item v-if="this.$auth.loggedIn" class="ml-2">
         <b-button @click="logout">logout</b-button>
+      </b-navbar-item>
+      <b-navbar-item v-else class="ml-2">
+        <b-button to="/login">login</b-button>
       </b-navbar-item>
     </b-navbar>
     <b-container>
