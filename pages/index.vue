@@ -6,7 +6,8 @@
       <h2 class="subtitle">{{jobsCount}} jobs and counting...</h2>
       <div class="links">
         <n-link to="jobs" class="button--green">Jobs</n-link>
-        <n-link to="register" class="button--green">Register</n-link>
+        <n-link v-if="!$auth.loggedIn" to="register" class="button--green">Register</n-link>
+        <n-link v-if="$auth.loggedIn" to="applicants" class="button--green">My Posted Jobs</n-link>
       </div>
     </div>
   </div>

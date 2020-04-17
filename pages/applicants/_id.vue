@@ -39,6 +39,7 @@ export default {
   components: {
     JobData
   },
+  middleware: "auth",
   data() {
     return {
       form: {}

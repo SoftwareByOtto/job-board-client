@@ -13,7 +13,7 @@
         <b-form-group label="password">
           <b-form-input type="password" required v-model="form.password"></b-form-input>
         </b-form-group>
-        <b-button type="submit">submit</b-button>
+        <b-button type="submit">register</b-button>
       </b-form>
       <hr />Already registered?
       <n-link to="/login">Login.</n-link>
