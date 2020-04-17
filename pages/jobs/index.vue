@@ -1,7 +1,10 @@
 <template>
   <div>
     <h1>Jobs</h1>
-    <div v-for="job in jobs" :key="job.id">
+    <b-form-group description="choose a category">
+      <b-form-select v-model="filterCategory" :options="options"></b-form-select>
+    </b-form-group>
+    <div v-for="job in filteredJobs" :key="job.id">
       <n-link :to="`/jobs/${job.id}`">
         <b-card class="mb-2" :class="{promoted: job.owner && job.owner.promoted}">
           <b-row>
@@ -25,6 +28,27 @@
 export default {
   async asyncData({ $axios, env }) {
     return { jobs: await $axios.$get(`/jobs`) };
+  },
+  data() {
+    return {
+      filterCategory: ""
+    };
+  },
+  computed: {
+    options() {
+      return [
+        { value: null, text: "choose an option" },
+        ...[...new Set(this.jobs.map(job => job.category))].map(v => ({
+          value: v,
+          text: v
+        }))
+      ];
+    },
+    filteredJobs() {
+      return this.filterCategory
+        ? this.jobs.filter(job => job.category === this.filterCategory)
+        : this.jobs;
+    }
   }
 };
 </script>
