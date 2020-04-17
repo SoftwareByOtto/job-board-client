@@ -15,6 +15,8 @@
         </b-form-group>
         <b-button type="submit">submit</b-button>
       </b-form>
+      <hr />Already registered?
+      <n-link to="/login">Login.</n-link>
     </b-card>
   </div>
 </template>
@@ -29,11 +31,16 @@ export default {
   methods: {
     async handleSubmit() {
       try {
-        const user = await this.$axios.post(
-          `${process.env.API_URL}/auth/local/register`,
-          this.form
-        );
-        this.$router.push("/success");
+        const user = await this.$axios.post(`/auth/local/register`, this.form);
+        console.log("user", user);
+        const response = await this.$auth.loginWith("local", {
+          data: {
+            identifier: this.form.email,
+            password: this.form.password
+          }
+        });
+        console.log("res", response);
+        // this.$router.push("/success");
       } catch (err) {
         console.log(err);
       }

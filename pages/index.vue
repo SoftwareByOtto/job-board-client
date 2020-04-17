@@ -17,7 +17,7 @@ import Logo from "~/components/Logo.vue";
 
 export default {
   async asyncData({ $axios, env }) {
-    return { jobsCount: await $axios.$get(`${env.API_URL}/jobs/count`) };
+    return { jobsCount: await $axios.$get(`/jobs/count`) };
   },
   components: {
     Logo

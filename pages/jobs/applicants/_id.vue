@@ -53,10 +53,8 @@ export default {
   },
   async asyncData({ $axios, params, env }) {
     return {
-      job: await $axios.$get(`${env.API_URL}/jobs/${params.id}`),
-      applicants: await $axios.$get(
-        `${env.API_URL}/applicants?job.id=${params.id}`
-      )
+      job: await $axios.$get(`/jobs/${params.id}`),
+      applicants: await $axios.$get(`/applicants?job.id=${params.id}`)
     };
   }
 };

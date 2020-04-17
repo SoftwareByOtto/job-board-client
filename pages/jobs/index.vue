@@ -24,7 +24,7 @@
 <script>
 export default {
   async asyncData({ $axios, env }) {
-    return { jobs: await $axios.$get(`${env.API_URL}/jobs`) };
+    return { jobs: await $axios.$get(`/jobs`) };
   }
 };
 </script>

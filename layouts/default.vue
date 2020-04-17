@@ -5,6 +5,14 @@
         Jobsite
         <sup>beta</sup>
       </b-navbar-brand>
+      <!-- <b-navbar-item>{{this.$auth.loggedIn}}</b-navbar-item> -->
+      <b-navbar-item
+        v-if="this.$auth.loggedIn"
+        class="ml-2"
+      >{{this.$store.state.auth.user.username}}</b-navbar-item>
+      <b-navbar-item class="ml-2">
+        <b-button @click="logout">logout</b-button>
+      </b-navbar-item>
     </b-navbar>
     <b-container>
       <b-card class="mb-2">
@@ -13,6 +21,16 @@
     </b-container>
   </div>
 </template>
+
+<script>
+export default {
+  methods: {
+    logout() {
+      this.$auth.logout();
+    }
+  }
+};
+</script>
 
 <style>
 body {
