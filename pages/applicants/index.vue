@@ -1,6 +1,9 @@
 <template>
   <div>
-    <h1>Your Jobs</h1>
+    <h1>
+      Your Jobs
+      <b-button to="/jobs/post">Post a job</b-button>
+    </h1>
     <p>jobs you've posted</p>
     <b-form-group description="choose a category">
       <b-form-select v-model="filterCategory" :options="options"></b-form-select>
